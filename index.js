@@ -66,23 +66,25 @@ app.delete("/chats/:id", async(req, res)=>{
    res.redirect("/chats");
 });
 
-let chat1 = new Chat({
-    from: "Vaibhav", 
-    to: "Singh",
-    msg:"Send me photo",
-    created_at: new Date()
-});
-
-chat1.save()
-  .then(res=>{
-    console.log(res);
-});
-
 app.get("/", (req, res)=>{
     res.send("Working");
 })
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+async function startServer() {
+  try {
+    await mongoose.connect(process.env.MONGODB_URL);
+    console.log("MongoDB Connected");
+
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+
+  } catch (err) {
+    console.error("MongoDB connection failed:", err);
+    process.exit(1);
+  }
+}
+
+startServer();
