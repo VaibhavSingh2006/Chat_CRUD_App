@@ -1,36 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>min_whatsapp</title>
-    <link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chats</title>
+  <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
-    <h3>All chats!</h3>
-    <form method="GET" action="/chats/new">
-        <button class="btn edit">New Chat</button>
-    </form>
-    <br>
-    <%for(let chat of chats){%>
+
+  <h3>All Chats</h3>
+
+  <form method="GET" action="/chats/new">
+    <button class="btn edit">New Chat</button>
+  </form>
+
+  <hr />
+
+  <% if (chats.length === 0) { %>
+    <p>No chats found.</p>
+  <% } %>
+
+  <% for (let chat of chats) { %>
+
     <div class="chat">
-        <p>From: <i><%=chat.from%></i></p>
-        <div class="msg">
-           <p><%=chat.msg%></p>
-           <form method="GET" action="/chats/<%=chat._id%>/edit">
-             <button class="btn edit">edit</button>
-           </form>
-           <br/>
-           <form method="POST" action="/chats/<%=chat._id%>?_method=Delete">
-             <button class="btn delete">delete</button>
-           </form>
-        </div>
-        <p>Received by:<i><%=chat.to%></i></p>
-        <hr/>
-        <p><%=chat.created_at.toString().split(" ")[4]%></p>
-        <p><%=chat.created_at.toString().split(" ").slice(0, 4).join("-")%></p>
+      <p>From: <b><%= chat.from %></b></p>
+
+      <div class="msg">
+        <p><%= chat.msg %></p>
+
+        <form method="GET" action="/chats/<%= chat._id %>/edit">
+          <button class="btn edit">Edit</button>
+        </form>
+
+        <form method="POST" action="/chats/<%= chat._id %>?_method=DELETE">
+          <button class="btn delete">Delete</button>
+        </form>
+      </div>
+
+      <p>Received by: <b><%= chat.to %></b></p>
+
+      <% if (chat.created_at) { %>
+        <p>
+          <%= chat.created_at.toDateString() %> |
+          <%= chat.created_at.toTimeString().slice(0, 5) %>
+        </p>
+      <% } %>
+
     </div>
-    <br><br>
-   <%}%>
+
+    <hr />
+
+  <% } %>
+
 </body>
 </html>
