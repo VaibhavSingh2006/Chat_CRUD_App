@@ -67,7 +67,7 @@ app.delete("/chats/:id", async(req, res)=>{
 });
 
 app.get("/", (req, res)=>{
-    res.send("Working");
+    res.redirect("/chats");
 })
 const PORT = process.env.PORT || 3000;
 
