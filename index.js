@@ -19,7 +19,7 @@ main().then(()=>{
 .catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/whatsapp');
+  await mongoose.connect(process.env.MONGODB_URL);
 }
 //Index Rout
 app.get("/chats", async (req, res)=>{
@@ -81,6 +81,8 @@ chat1.save()
 app.get("/", (req, res)=>{
     res.send("Working");
 })
-app.listen(8080, ()=>{
-     console.log("server is listening on port 8080");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
