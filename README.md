@@ -19,7 +19,7 @@ The app allows users to create, view, edit, and delete chat messages with a clea
 
 ## 🛠 Tech Stack
 
-- **Backend:** Node.js, Express.js  
+- **Backend:** Node.js, Express.js
 - **Frontend:** EJS, HTML, CSS  
 - **Database:** MongoDB, Mongoose  
 - **Tools:** Git, GitHub, VS Code  
